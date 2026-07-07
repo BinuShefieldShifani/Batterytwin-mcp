@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "battery-twin-mcp"
+version = "0.1.0"
+description = "Agentic battery engineering assistant: a physics-based lithium-ion digital twin exposed over the Model Context Protocol (MCP), driven by a local Ollama LLM via LangGraph."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Binu Shefield Shifani" }]
+keywords = ["mcp", "agentic-ai", "digital-twin", "battery", "pybamm", "langgraph", "ollama"]
+
+dependencies = [
+    "pybamm>=24.5",
+    "numpy>=1.26",
+    "mcp>=1.2",
+    "langchain-mcp-adapters>=0.1",
+    "langgraph>=0.2",
+    "langchain-ollama>=0.2",
+    "langchain-core>=0.3",
+]
+
+[project.optional-dependencies]
+ui = ["streamlit>=1.36"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+battery-twin-server = "battery_twin.servers.twin_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

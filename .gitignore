@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Environment
+.env
+
+# PyBaMM / sim artefacts
+*.pkl
+results/
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

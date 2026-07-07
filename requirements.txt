@@ -1,0 +1,16 @@
+# Core
+pybamm>=24.5
+numpy>=1.26
+
+# MCP + agent
+mcp>=1.2
+langchain-mcp-adapters>=0.1
+langgraph>=0.2
+langchain-ollama>=0.2
+langchain-core>=0.3
+
+# UI (optional)
+streamlit>=1.36
+
+# Dev (optional)
+pytest>=8.0
