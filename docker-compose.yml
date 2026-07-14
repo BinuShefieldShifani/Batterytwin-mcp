@@ -1,0 +1,40 @@
+# Battery Digital Twin (MCP) - full stack.
+#
+#   docker compose up -d ollama          # start the model server
+#   docker compose exec ollama ollama pull llama3.1:8b   # pull the model once
+#   docker compose up app                # start the agent UI -> http://localhost:8501
+#
+# The GPU block below requires the NVIDIA Container Toolkit. If you have no GPU,
+# delete the `deploy:` section under `ollama` - it will run on CPU (slower).
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: battery-twin-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: battery-twin-app
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.1:8b}
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+
+volumes:
+  ollama_models:
